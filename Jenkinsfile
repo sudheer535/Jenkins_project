@@ -18,8 +18,8 @@ pipeline{
         }
         stage('Docker_Push'){
             steps{
-                withCredentials([string(credentialsId: 'Dockercred', variable: 'pwd')]) {
-                    sh 'docker login -u sudheer535 -p ${pwd}'
+                withCredentials([string(credentialsId: 'Dockercred', variable: 'dockerPwd')]) {
+                    sh 'docker login -u sudheer535 -p ${dockerPwd}'
                 }
                 sh 'docker push sudheer535/premiumapp:${DOCKER_VERSION}'
             }
