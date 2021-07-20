@@ -2,6 +2,9 @@ pipeline{
     agent {
         label 'Linux'
     }
+    environment {
+            DOCKER_VERSION = "gitVersion()"
+        }
     stages{
         stage('git-checkout'){
             steps{
@@ -10,11 +13,15 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh 'docker build -t sudheer:v1 .'
+                sh 'docker build -t sudheer:${DOCKER_VERSION} .'
             }
         }
 
 
     }
 
+}
+def gitVersion(){
+        def latestCommit = sh label: 'name', returnStdout: true, script: 'git rev-parse --short HEAD'
+        return latestCommit
 }
