@@ -3,7 +3,7 @@ pipeline{
         label 'Linux'
     }
     environment {
-            DOCKER_VERSION = "gitVersion()"
+            DOCKER_VERSION = gitVersion()
         }
     stages{
         stage('git-checkout'){
