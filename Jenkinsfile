@@ -13,7 +13,15 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh 'docker build -t sudheer:${DOCKER_VERSION} .'
+                sh 'docker build -t sudheer535/premiumapp:${DOCKER_VERSION} .'
+            }
+        }
+        stage('Docker_Push'){
+            steps{
+                withCredentials([string(credentialsId: 'Dockercred', variable: 'pwd')]) {
+                    sh 'docker login -u sudheer535 -p ${pwd}'
+                }
+                sh 'docker push sudheer535/premiumapp:${DOCKER_VERSION}'
             }
         }
 
