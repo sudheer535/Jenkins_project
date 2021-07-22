@@ -24,6 +24,11 @@ pipeline{
                 sh 'docker push sudheer535/premiumapp:${DOCKER_VERSION}'
             }
         }
+        stage('Running docker container'){
+            steps{
+                ansiblePlaybook credentialsId: 'Appacheserver', disableHostKeyChecking: true, extras: '-e DOCKER_VERSION=${DOCKER_VERSION}', installation: 'Ansible', inventory: 'dev-inv', playbook: 'deployment.yml'
+            }
+        }
 
 
     }
